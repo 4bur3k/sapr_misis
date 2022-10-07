@@ -2,23 +2,25 @@ import re
 
 
 # returns the list of nodes and their relation
-def task(csv_string):
-    # making adjacency list out of edge list
-    graph_nodes = re.findall(r'\d+', csv_string)
-    for i in range(len(graph_nodes)):
-        graph_nodes[i] = int(graph_nodes[i])
-    graph = {i: [] for i in range(1, max(graph_nodes) + 1)}
+def task(file_content):
 
-    csv_string = csv_string.split('\n')
-    if csv_string[-1] == '':
-        del csv_string[-1]
+    nodes = re.findall(r'\d', file_content)
 
-    for i in csv_string:
+    nodes = [int(item) for item in nodes]
+
+    graph = {i: [] for i in range(1, max(nodes) + 1)}
+
+    string = file_content.split('\n')
+
+    if string[-1] == '':
+        del string[-1]
+
+    for i in string:
         nodes = i.split(',')
         graph[int(nodes[0])].append(nodes[1])
 
-    # main task
     r1, r2, r3, r4, r5 = [], [], [], [], []
+
 
     for key in graph:
         if len(graph[key]) > 0:
@@ -42,11 +44,11 @@ def task(csv_string):
     return [r1, r2, r3, r4, r5]
 
 
+
 def main():
     with open('data.csv') as file:
-        csv_string = file.read()
-        result = task(csv_string)
-        print(result)
+        file_content = file.read()
+        task(file_content)
 
 
 if __name__ == '__main__':
