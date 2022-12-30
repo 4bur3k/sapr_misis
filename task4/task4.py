@@ -1,7 +1,7 @@
 import csv
 import math
 
-def Solution(path_to_csv: str):
+def task(path_to_csv: str):
     #getting data from csv
     with open (path_to_csv, 'r') as f:
         reader = csv.reader(f, delimiter=',')
